@@ -55,6 +55,14 @@
     python ../gaussian-splatting/convert.py -s .
     ```
     **Note:** This will executy COLMAP porcesses to generate a sparse point cloud and undistort images. The images should be place in a subfolder named `input`
+
+    If your images in the `images/` directory have been rotated, rotate them back to your desired orientation using the following:
+
+    ```
+    python3 colmap_gaussian_splatting/rotate_images.py --images_path <images directory> --output_path <optional output directory> --direction <counterclockwise|clockwise>
+
+    ```
+    
     ```
     python ../gaussian-splatting/train.py -s .
     ```

@@ -6,9 +6,9 @@ mkdir sparse
 
 colmap mapper --database_path database.db --image_path input --output_path sparse --Mapper.ba_global_function_tolerance=0.000001
 
-mkdir dense
+colmap image_undistorter --image_path input --input_path sparse/0 --output_path ./ --output_type COLMAP --max_image_size 2000 
 
-colmap image_undistorter --image_path . --input_path sparse/0 --output_path dense --output_type COLMAP --max_image_size 2000
+mkdir dense
 
 colmap patch_match_stereo --workspace_path dense --workspace_format COLMAP --PatchMatchStereo.geom_consistency true
 
