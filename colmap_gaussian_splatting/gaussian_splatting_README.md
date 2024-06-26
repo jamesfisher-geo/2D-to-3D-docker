@@ -46,17 +46,46 @@
     Make sure to activate the `gaussian_splatting` conda environment
 
     ```
-    conda activate gaussian_splatting
+        conda activate gaussian_splatting
     ```
 
     Create and train a Gaussian Splatting model from COLMAP matches features with the following:
 
     ```
-    python ../gaussian-splatting/convert.py -s .
+        python ../gaussian-splatting/convert.py -s .
     ```
     **Note:** This will executy COLMAP porcesses to generate a sparse point cloud and undistort images. The images should be place in a subfolder named `input`
+
+    OR 
+
+    You can run the following COLMAP commands:
+
+    ```bash
+        mkdir distorted
+
+        mkdir distorted/sparse
+
+        colmap feature_extractor --database_path distorted/database.db --image_path input --ImageReader.single_camera 1 --ImageReader.camera_model PINHOLE --SiftExtraction.use_gpu 1
+
+        # If your images were captured in-sequence, running the sequential_matcher will save you time
+        colmap sequential_matcher --database_path distorted/database.db --SiftMatching.use_gpu 1
+
+        # Otherwise use exhaustive_matcher
+        colmap exhaustive_matcher --database_path distorted/database.db --SiftMatching.use_gpu 1
+
+        mkdir distorted/sparse/0
+
+        colmap mapper --database_path distorted/database.db --image_path input --output_path distorted/sparse --Mapper.ba_global_function_tolerance=0.000001
+
+        colmap image_undistorter --image_path input --input_path distorted/sparse/0 --output_path . --output_type COLMAP
+
+        ls | grep -v 0 | xargs mv -t 0
     ```
-    python ../gaussian-splatting/train.py -s .
+
+    Run this command to train a Gaussian Spalatting model
+
+    ```
+        python ../gaussian-splatting/train.py -s .
     ```
 
     enter `exit` to exit the docker container
