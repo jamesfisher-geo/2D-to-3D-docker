@@ -13,3 +13,6 @@ colmap image_undistorter --image_path . --input_path sparse/0 --output_path dens
 colmap patch_match_stereo --workspace_path dense --workspace_format COLMAP --PatchMatchStereo.geom_consistency true
 
 colmap stereo_fusion --workspace_path dense --workspace_format COLMAP --input_type geometric --output_path dense/fused.ply
+
+
+ CUDA_VISIBLE_DEVICES=0 python3 gsplat/examples/simple_trainer.py default --data_dir . --data_factor 4 --result_dir ./results/0

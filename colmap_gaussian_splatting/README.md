@@ -82,11 +82,13 @@
         ls | grep -v 0 | xargs mv -t 0
     ```
 
-    Run this command to train a Gaussian Spalatting model
+    Run this command to train a Gaussian Splatting model
 
     ```
-        python ../gaussian-splatting/train.py -s .
+        python3 ../gaussian-splatting/train.py --save_iterations 7000 15000 30000 --images images_4  -s .
     ```
+
+    note that --resolution 8 downsamples the images to 1/8 the size
 
     enter `exit` to exit the docker container
 

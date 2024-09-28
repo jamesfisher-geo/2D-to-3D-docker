@@ -1,8 +1,8 @@
 FROM nvidia/cuda:11.6.2-devel-ubuntu20.04
 
-ARG COLMAP_GIT_COMMIT=main
+ARG COLMAP_GIT_COMMIT=3.10
 ARG GAUSS_SPLAT_GIT_COMMIT=main
-ARG CUDA_ARCHITECTURES=native
+ARG CUDA_ARCHITECTURES=86
 ENV QT_XCB_GL_INTEGRATION=xcb_egl
 
 # Prevent stop building ubuntu at time zone selection.  
